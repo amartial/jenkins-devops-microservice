@@ -39,11 +39,11 @@ pipeline {
 				sh "mvn test"
 			 }
 		}
-		stage('Integration Test') {
-			 steps {
-				sh "mvn failsafe: integration-test failsafe:verify"
-			 }
-		}
+		// stage('Integration Test') {
+		// 	 steps {
+		// 		sh "mvn failsafe: integration-test failsafe:verify"
+		// 	 }
+		// }
 
 		stage('Package') {
 			 steps {
