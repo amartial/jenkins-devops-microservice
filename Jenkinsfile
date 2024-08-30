@@ -6,10 +6,12 @@
 // }
 
 pipeline {
-	agent any
+	// agent any
+	agen { docker { image 'maven:3.6.3' } }
 	stages {
 		stage('Build') {
 			 steps {
+				sh 'mvn --version'
 				echo "Build"
 			 }
 		}
@@ -24,6 +26,7 @@ pipeline {
 			 }
 		}
 	}
+
 	post {
 		always {
 			echo "Im awesome. I run always"
@@ -34,5 +37,8 @@ pipeline {
 		failure {
 			echo "I run when you are fail"
 		}
+		// changed {
+		// 	echo "I run when status change 'success to failure and vise versa'"
+		// }
 	}
 }
