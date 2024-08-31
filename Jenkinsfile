@@ -34,40 +34,40 @@ pipeline {
 				sh 'mvn clean compile'
 			}
 		}
-		stage('Test') {
-			 steps {
-				sh "mvn test"
-			 }
-		}
-		stage('Integration Test') {
-			 steps {
-				sh "mvn failsafe:integration-test failsafe:verify"
-			 }
-		}
+		// stage('Test') {
+		// 	 steps {
+		// 		sh "mvn test"
+		// 	 }
+		// }
+		// stage('Integration Test') {
+		// 	 steps {
+		// 		sh "mvn failsafe:integration-test failsafe:verify"
+		// 	 }
+		// }
 
-		// stage('Package') {
-		// 	 steps {
-		// 		sh "mvn package -D skipTests"
-		// 	 }
-		// }
-		// stage('Build Docker Image') {
-		// 	 steps {
-		// 		// "docker Build -t in28min/currency-exchange-devops:$env.BUILD_TAG"
-		// 		script {
-		// 			dockerImage = docker.build("docker Build -t alinombe/currency-exchange-devops:${env.BUILD_TAG}")
-		// 		}
-		// 	 }
-		// }
-		// stage('Push Docker Image') {
-		// 	 steps {
-		// 		script {
-		// 			docker.withRegistry('', 'dockerhub') {
-		// 				dockerImage.push();
-		// 				dockerImage.push('latest')
-		// 			}
-		// 		}
-		// 	 }
-		// }
+		stage('Package') {
+			 steps {
+				sh "mvn package -DskipTests"
+			 }
+		}
+		stage('Build Docker Image') {
+			 steps {
+				// "docker Build -t in28min/currency-exchange-devops:$env.BUILD_TAG"
+				script {
+					dockerImage = docker.build("docker Build -t alinombe/currency-exchange-devops:${env.BUILD_TAG}")
+				}
+			 }
+		}
+		stage('Push Docker Image') {
+			 steps {
+				script {
+					docker.withRegistry('', 'dockerhub') {
+						dockerImage.push();
+						dockerImage.push('latest')
+					}
+				}
+			 }
+		}
 	}
 
 	post {

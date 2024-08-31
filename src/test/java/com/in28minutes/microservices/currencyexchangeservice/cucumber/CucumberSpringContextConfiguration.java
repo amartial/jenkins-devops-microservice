@@ -15,5 +15,6 @@ public class CucumberSpringContextConfiguration {
 
   @Before
   public void setUp() {
+
   }
 }
